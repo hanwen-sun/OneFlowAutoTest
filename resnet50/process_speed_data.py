@@ -25,7 +25,8 @@ if __name__ == "__main__":
         mean_torch_times = []
         mean_relative_speed = []
 
-        root = "/data/home/sunhanwen/OneAutoTest/eager/resnet50/data"
+        root = "/path/to/OneFlowAutoTest/resnet50/data"
+        #root = "/home/OneFlowAutoTest/resnet50/data"                                                                                                                                  
         dict = {}
         for file in os.listdir(root):
             if file.startswith("test_eager"):
@@ -52,10 +53,11 @@ if __name__ == "__main__":
                                 relative_speed_line = relative_speed_line[relative_speed_line.find("Relative speed: "):]
                             
                             # if 1n1d or not
-                            if ", input_shape=[" in line and "])" in line:
-                                print('if 1n1d or not')
+                            # 这里1n1d, 1n2d的统计方法有误, shape的第一个表示的marco batch;
+                            if ", input_shape=[1" in line:
+                                #print('if 1n1d or not')
                                 if '1n1d' not in dict[file].keys():
-                                    print(file + "don't have 1n1d")
+                                    #print(file + "don't have 1n1d")
                                     dict[file]['1n1d'] = {}
 
                                 # catch batch_size, channel, width, length
@@ -80,7 +82,7 @@ if __name__ == "__main__":
                                 end_pos = relative_speed_line.find(" ", start_pos)
                                 dict[file]['1n1d'][str(dict_key)]['relative_speed'].append(float(relative_speed_line[start_pos:end_pos]))
                             
-                            elif "ddp" in line:
+                            elif ", input_shape=[2" in line:
                                 if '1n2d' not in dict[file].keys():
                                     dict[file]['1n2d'] = {}
 
@@ -122,31 +124,36 @@ if __name__ == "__main__":
                             value['mean_torch_time'] = str(np.around(np.mean(value['torch_exec_time']), 3)) + "ms"
                             value['mean_relative_speed'] = str(np.around(np.mean(value['relative_speed']), 3))
                             
-                            file_end_point = file.rfind('_')
-                            nsys_root = 'https://oneflow-test.oss-cn-beijing.aliyuncs.com/EagerTest/...'
+                            #file_end_point = file.rfind('_')
+                            #nsys_root = 'https://oneflow-test.oss-cn-beijing.aliyuncs.com/EagerTest/...'
                             # nsys_file = 'resnet50_eager_' + file[18:file_end_point] + '.qdrep'
-                            nsys_file = 'resnet50_eager_%s_ws%s_' % (key, k[2]) + file[18:file_end_point] + '.qdrep'
-                            value['nsys'] = nsys_root + nsys_file
+                            #nsys_file = 'resnet50_eager_%s_ws%s_' % (key, k[2]) + file[18:file_end_point] + '.qdrep'
+                            #value['nsys'] = nsys_root + nsys_file
 
-        '''
-        print(dict)
+        
+        #print(dict)
         for file_name in dict.keys():
-            print(file_name)
-            for key, value in dict[file_name]['1n1d'].items():
-                result_line = "| resnet50_%s_ws%s_%s |" % (key, '1', file_name[18:])
+            #print(file_name[18:])
+            if '1n1d' in dict[file_name].keys():
+                for key, value in dict[file_name]['1n1d'].items():
+                    #print(file_name)
+                    result_line = "| resnet50_%s_%s |" % (key, file_name[18:])
 
-                result_line += (" %s / %s [nsys](%s)| " % (value['mean_time'], value['mean_relative_speed'], value['nsys']))
-                result_line += (" %s | " % value['mean_torch_time'])
+                    #result_line += (" %s / %s [nsys](%s)| " % (value['mean_time'], value['mean_relative_speed'], value['nsys']))
+                    result_line += (" %s / %s | " % (value['mean_time'], value['mean_relative_speed']))
+                    result_line += (" %s | " % value['mean_torch_time'])
 
-                process_res.write(result_line + "\n")
-        '''
+                    process_res.write(result_line + "\n")
+        
 
         for file_name in dict.keys():
-            for key, value in dict[file_name]['1n2d'].items():
-                result_line = "| resnet50_%s_ws%s_%s |" % (key, '2', file_name[18:])
+            if '1n2d' in dict[file_name].keys():
+                for key, value in dict[file_name]['1n2d'].items():
+                    result_line = "| resnet50_%s_%s |" % (key, file_name[18:])
 
-                result_line += (" %s / %s [nsys](%s)| " % (value['mean_time'], value['mean_relative_speed'], value['nsys']))
-                result_line += (" %s | " % value['mean_torch_time'])
+                    #result_line += (" %s / %s [nsys](%s)| " % (value['mean_time'], value['mean_relative_speed'], value['nsys']))
+                    result_line += (" %s / %s | " % (value['mean_time'], value['mean_relative_speed']))
+                    result_line += (" %s | " % value['mean_torch_time'])
 
-                process_res.write(result_line + "\n")
+                    process_res.write(result_line + "\n")
 

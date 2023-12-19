@@ -7,7 +7,6 @@ ONEFLOW_AD_PUT_LOSS_ON_TMP_COMPUTE_STREAM=${2:-true}
 ONEFLOW_VM_ENABLE_STREAM_WAIT=${3:-true}
 ONEFLOW_EAGER_ENABLE_LOCAL_INFER_CACHE=${4:-true}
 
-
 export ONEFLOW_VM_COMPUTE_ON_WORKER_THREAD=$ONEFLOW_VM_COMPUTE_ON_WORKER_THREAD
 echo ONEFLOW_VM_COMPUTE_ON_WORKER_THREAD=$ONEFLOW_VM_COMPUTE_ON_WORKER_THREAD
 
@@ -29,8 +28,7 @@ rc=0
 # accumulate the score of every test
 trap 'rc=$(($rc + $?))' ERR
 
-export ONEFLOW_MODELS_DIR=~/OneAutoTest/eager/resnet50/models
-echo "test on master"
+export ONEFLOW_MODELS_DIR=/home/OneFlowAutoTest/resnet50/models
 
 # rm result || true
 
@@ -90,19 +88,13 @@ python3 -m oneflow.distributed.launch --master_port 31349 --nproc_per_node ${WOR
 
 done
 
-echo "go here"
-LOG_FILENAME=~/OneAutoTest/eager/resnet50/data/resnet50_eager_${INPUT_SHAPE}_ws${WORLD_SIZE}_${ONEFLOW_VM_COMPUTE_ON_WORKER_THREAD}_${ONEFLOW_AD_PUT_LOSS_ON_TMP_COMPUTE_STREAM}_${ONEFLOW_VM_ENABLE_STREAM_WAIT}_${ONEFLOW_EAGER_ENABLE_LOCAL_INFER_CACHE}
-nsys profile --stats true --output ${LOG_FILENAME} --sample none --cpuctxsw none \
-echo "$LOG_FILENAME"
+# 这里是nsys报告相关
+#LOG_FILENAME=/home/OneFlowAutoTest/resnet50/data/resnet50_eager_${INPUT_SHAPE}_ws${WORLD_SIZE}_${ONEFLOW_VM_COMPUTE_ON_WORKER_THREAD}_${ONEFLOW_AD_PUT_LOSS_ON_TMP_COMPUTE_STREAM}_${ONEFLOW_VM_ENABLE_STREAM_WAIT}_${ONEFLOW_EAGER_ENABLE_LOCAL_INFER_CACHE}
+#nsys profile --stats true --output ${LOG_FILENAME} --sample none --cpuctxsw none \
+#echo "$LOG_FILENAME"
 python3 -m oneflow.distributed.launch --master_port 31349 --nproc_per_node ${WORLD_SIZE} scripts/compare_speed_with_pytorch.py Vision/classification/image/resnet50/models/resnet50.py resnet50 ${INPUT_SHAPE} --no-show-memory --times ${TIMES} --ddp --only-oneflow | check_relative_speed 1.15 | write_to_file_and_print
 
-result="GPU Name: `nvidia-smi --query-gpu=name --format=csv,noheader -i 0` \n\n `cat result`"
-# escape newline for github actions: https://github.community/t/set-output-truncates-multiline-strings/16852/2
-# note that we escape \n and \r to \\n and \\r (i.e. raw string "\n" and "\r") instead of %0A and %0D,
-# so that they can be correctly handled in javascript code
-# result="${result//'%'/'%25'}"
-# result="${result//$'\n'/'\\n'}"
-# result="${result//$'\r'/'\\r'}"
+# result="GPU Name: `nvidia-smi --query-gpu=name --format=csv,noheader -i 0` \n\n `cat result`"
 
 # echo "::set-output name=stats::$result"
 
