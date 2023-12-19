@@ -12,16 +12,16 @@ docker run --gpus all -it --shm-size 16G --ulimit memlock=-1 --name eager_test n
 ```
 * clone 自动化脚本
 ```shell
+apt-get -y update
 apt-get -y install git
 git clone https://github.com/hanwen-sun/OneFlowAutoTest.git
 ```
 * 以下操作可以运行prepare.sh一键运行;
 * 安装对应版本python与pytorch:
 ```shell
-apt-get update
-apt-get-y install python3.10 # ubuntu22.04默认python3.10
+apt-get -y install python3.10 # ubuntu22.04默认python3.10
 ln -s /usr/bin/python3.10 /usr/bin/python # 创建软连接，方便直接使用python代替python3.10执行操作（软连接删除：rm /usr/bin/python）
-apt-get-y install python3-pip # 安装pip
+apt-get -y install python3-pip # 安装pip
 ln -s /usr/bin/pip3 /usr/bin/pip # 创建软连接，方便直接使用pip代替pip3
 
 # 更换清华源

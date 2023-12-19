@@ -7,6 +7,7 @@ set -ex
 #export ONEFLOW_COMM_NET_IB_HCA=$NCCL_IB_HCA
 
 CONFIG=$1
+echo $CONFIG
 NNODES=${2:-1}
 GPUS_PER_NODE=${3:-8}
 # Change for multinode config
@@ -21,19 +22,19 @@ MICRO_BATCH_SIZE=${10:-4}
 GLOBAL_BATCH_SIZE=${11:-4}
 WORKER_THREAD_ON=${12:-false}
 NUM_LAYER=${13:-24}
-RUN_COMMIT=${14:-"01b1d32"}
-TRAIN_ITERS=${15:-220}
+RUN_COMMIT=$(python3 -m oneflow --doctor | grep "git_commit" | awk '{print $2}')
+TRAIN_ITERS=${15:-200}   # 这里应该是训200轮!
 LOG_PERIOD=${16:-100}
 
 TRAN_MODEL="LibAI_bert"
 RUN_TIME=$(date "+%Y%m%d_%H%M%S%N")
-LOG_FOLDER=test_log_new/libai/${NNODES}n${GPUS_PER_NODE}g
+LOG_FOLDER=test_logs/libai/${NNODES}n${GPUS_PER_NODE}g
 
 AMP_OR="FP32"
 if $USE_FP16; then
     AMP_OR="FP16"
 fi
-
+#rm -rf $LOG_FOLDER
 # log
 #export CUDNN_LOGINFO_DBG=1
 #export CUDNN_LOGDEST_DBG=cudnn.log
@@ -46,11 +47,12 @@ LOG_FILENAME=$LOG_FOLDER/${TRAN_MODEL}_nl${NUM_LAYER}_nah16_hs1024_${AMP_OR}_ac$
 echo LOG_FILENAME=$LOG_FILENAME
 mkdir -p $LOG_FILENAME
 
+export CUDA_VISIBLE_DEVICES=7,6,5,4,3,2,1,0
 # nsys
 # nsys profile --stats true --output ${LOG_FILENAME} \
 python3 -m oneflow.distributed.launch \
 --nproc_per_node $GPUS_PER_NODE --nnodes $NNODES --node_rank $NODE_RANK --master_addr $MASTER_ADDR --master_port $MASTER_PORT \
-/data/home/sunhanwen/libai/tools/train_net.py \
+/home/OneFlowAutoTest/libai/libai/tools/train_net.py \
 --config-file $CONFIG \
 model.cfg.hidden_layers=$NUM_LAYER \
 train.dist.pipeline_num_layers=$NUM_LAYER \
