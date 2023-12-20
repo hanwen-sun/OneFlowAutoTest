@@ -10,6 +10,7 @@ def extract_info_from_file(log_file):
     result_dict["memory"] = 0
     #print("come here" + log_file)
     with open(log_file, "r") as f:
+        cnt = 0
         for line in f.readlines():
             if "iteration:" in line and "time:" in line:
                 ss = line.split(" ")
@@ -18,9 +19,11 @@ def extract_info_from_file(log_file):
                 time_index = ss.index("time:")                
                 samples = float(ss[time_index + 8])
                 #samples = float(ss[time_index + 1].strip().split("(")[1][:-1])
-                if iteration_number == 219:
+                if iteration_number == 199:
                     result_dict["samples"] = samples
             elif "MiB," in line and "utilization" not in line:
+                cnt += 1
+                #print(cnt)
                 ss = line.split(" ")
                 #print(ss)
                 if ss[-1] == 'MiB\n':
@@ -29,7 +32,7 @@ def extract_info_from_file(log_file):
                     if (
                         "memory" not in result_dict.keys()
                         or result_dict["memory"] < memory_userd
-                    ):
+                    ) :
                         result_dict["memory"] = memory_userd
     return result_dict
 
@@ -46,6 +49,7 @@ def megatron_extract(log_file):
     result_dict["samples"] = 0
     result_dict["memory"] = 0
     with open(log_file, "r") as f:
+        cnt = 0
         for line in f.readlines():
             if "consumed samples:" in line:
                 # print('iteration: ' + line)
@@ -66,12 +70,14 @@ def megatron_extract(log_file):
                     result_dict["samples"] = "{:.2f}".format((consumed_samples / 200) * (1000 / time))
             elif "MiB," in line and "utilization" not in line:
                 #print('memory: ' + line)
+                cnt += 1
+                #print(cnt)
                 ss = line.split(" ")
                 memory_userd = int(ss[-2])
                 if (
                     "memory" not in result_dict.keys()
                     or result_dict["memory"] < memory_userd
-                ):
+                ) :
                     result_dict["memory"] = memory_userd
     return result_dict
 

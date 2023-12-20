@@ -6,7 +6,7 @@
 ### 环境准备
 
 
-* 拉取nvidia的cuda docker, 安装对应依赖,在docker中进行性能对比, 注意指定cuda版本为11.8, 因为oneflow目前还不支持cuda 12, 这里需要与oneflow对齐。
+* 拉取nvidia的cuda docker, 安装对应依赖,在docker中进行性能对比, 注意指定cuda版本为11.8, 因为oneflow目前还不支持cuda 12, 这里需要与oneflow对齐。(暂时存在问题，改为拉取nvidia-pytorch docker)
 ```shell
 docker run --gpus all -it --shm-size 16G --ulimit memlock=-1 --name eager_test nvcr.io/nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04
 ```
@@ -47,10 +47,4 @@ python3 -m oneflow --doctor # 查看oneflow版本;
 
 ### 进行实验
 
-* 先进行resnet50实验, 再进行libai实验(参考对应readme)
-```shell
-python -m pip install --upgrade pip
-pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
-pip uninstall -y torch
-pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-```
+* 先进行libai实验, 再进行resnet50实验(参考对应readme)

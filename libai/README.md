@@ -38,7 +38,12 @@ wget https://oneflow-test.oss-cn-beijing.aliyuncs.com/OneFlowAutoTest/libai/data
 
 ### 运行megatron实验
 * 修改megatron_args_pretrain_bert.sh 中的data_path与vocab_file
-* 
+* 运行megatron_args_test.sh
 
 ### 提取实验数据
+* `python extract_bert_test.py --test_log $test_log --compare_log $compare_log --oneflow_commit $commit`
 
+### 脚本运行
+* 运行prepare.sh
+* 运行run_all.sh
+* 得到最终数据  在test_logs/libai下

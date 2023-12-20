@@ -2,8 +2,9 @@
 测试eager模式下oneflow与pytorch训练resnet50的效率对比;
 
 ### 1. 准备测试环境
-见主目录readme;
-
+* 这里我们在pytorch docker中进行测试，需要先卸载pytorch，再安装cuda11.8对应的版本;
+* `pip uninstall torch`
+* `pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118`
 ### 2. 克隆仓库
 ```bash
 git clone https://github.com/Oneflow-Inc/models.git
