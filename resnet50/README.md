@@ -3,7 +3,7 @@
 
 ### 1. 准备测试环境
 * 这里我们在pytorch docker中进行测试，需要先卸载pytorch，再安装cuda11.8对应的版本;
-* `pip uninstall torch`
+* `pip uninstall -y torch`
 * `pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118`
 ### 2. 克隆仓库
 ```bash

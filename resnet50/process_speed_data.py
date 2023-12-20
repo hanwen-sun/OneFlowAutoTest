@@ -25,8 +25,8 @@ if __name__ == "__main__":
         mean_torch_times = []
         mean_relative_speed = []
 
-        root = "/path/to/OneFlowAutoTest/resnet50/data"
-        #root = "/home/OneFlowAutoTest/resnet50/data"                                                                                                                                  
+        #root = "/path/to/OneFlowAutoTest/resnet50/data"
+        root = "/home/OneFlowAutoTest/resnet50/data"                                                                                                                                  
         dict = {}
         for file in os.listdir(root):
             if file.startswith("test_eager"):
