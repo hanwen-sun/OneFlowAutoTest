@@ -24,12 +24,18 @@ ln -s /usr/bin/python3.10 /usr/bin/python # 创建软连接，方便直接使用
 apt-get -y install python3-pip # 安装pip
 ln -s /usr/bin/pip3 /usr/bin/pip # 创建软连接，方便直接使用pip代替pip3
 
+
 # 更换清华源
 python -m pip install --upgrade pip   # 可以不用执行
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
 # 大约需要20-30 min
 pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+```
+
+* 由于megatron在cuda 11.8下没跑通，这里我们测试resnet50时将pytorch与oneflow cuda对齐，在测试bert时, libai使用11.8, pytorch使用12.2; 命令如下:
+```shell
+docker run --gpus all -it --shm-size 16G --ulimit memlock=-1 --name eager_test nvcr.io/nvidia/pytorch:23.10-py3
 ```
 
 * oneflow安装(nightly)
@@ -42,3 +48,9 @@ python3 -m oneflow --doctor # 查看oneflow版本;
 ### 进行实验
 
 * 先进行resnet50实验, 再进行libai实验(参考对应readme)
+```shell
+python -m pip install --upgrade pip
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+pip uninstall -y torch
+pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
+```

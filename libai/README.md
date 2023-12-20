@@ -22,7 +22,7 @@ pip install .
 ### 数据准备
 ```shell
 mkdir bert_dataset && cd bert_dataset
-apt-get -y install wget
+# apt-get -y install wget
 wget https://oneflow-test.oss-cn-beijing.aliyuncs.com/OneFlowAutoTest/libai/dataset/bert-base-chinese-vocab.txt  &&
 wget https://oneflow-test.oss-cn-beijing.aliyuncs.com/OneFlowAutoTest/libai/dataset/loss_compara_content_sentence.bin && 
 wget https://oneflow-test.oss-cn-beijing.aliyuncs.com/OneFlowAutoTest/libai/dataset/loss_compara_content_sentence.idx
@@ -37,7 +37,8 @@ wget https://oneflow-test.oss-cn-beijing.aliyuncs.com/OneFlowAutoTest/libai/data
 * 运行run_libai.sh
 
 ### 运行megatron实验
-
+* 修改megatron_args_pretrain_bert.sh 中的data_path与vocab_file
+* 
 
 ### 提取实验数据
 

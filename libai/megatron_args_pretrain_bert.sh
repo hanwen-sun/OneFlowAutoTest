@@ -21,8 +21,8 @@ NUM_LAYER=${11:-24}
 TRAIN_ITERS=${12:-220}
 LOG_INTERVAL=${13:-100}
 RUN_COMMIT=${14:-"e156d2f"}
-DATA_PATH=${15:-"../data/bert_data/loss_compara_content_sentence"}
-VOCAB_FILE=${16:-"../data/bert_data/bert-base-chinese-vocab.txt"}
+DATA_PATH=${15:-"bert_data/loss_compara_content_sentence"}
+VOCAB_FILE=${16:-"bert_data/bert-base-chinese-vocab.txt"}
 
 SRC_DIR=$(realpath $(dirname $0)/..)
 TRAN_MODEL="Megatron_bert"
