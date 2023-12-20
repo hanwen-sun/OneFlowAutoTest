@@ -116,7 +116,7 @@ def extract_result(args, extract_func):
     throughput_final_result_dict = {}
     markdown_table_header = """
 
-|      | [libai-%s](https://github.com/Oneflow-Inc/oneflow/tree/%s) | [Megatron](https://github.com/NVIDIA/Megatron-LM/commit/e156d2fea7fc5c98e645f7742eb86b643956d840)                                                     |
+|      | [libai-%s](https://github.com/Oneflow-Inc/oneflow/tree/%s) | [Megatron](https://github.com/NVIDIA/Megatron-LM/commit/52b7a18a00bced8b3670eededfd58ee0c4bd7d06)                                                     |
 | ---- | ------------------------------------------------------------ | ------------------------------------------------------------ |""" % (args.oneflow_commit, args.oneflow_commit)
     markdown_table_body = """
 | {case_name}   | [{libai_memory}] MiB/[{libai_samples}] samples/s                                 | {megatron_memory} MiB/[{megatron_samples}] samples/s |"""
