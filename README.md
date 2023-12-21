@@ -16,7 +16,7 @@ apt-get -y update
 apt-get -y install git
 git clone https://github.com/hanwen-sun/OneFlowAutoTest.git
 ```
-* 以下操作可以运行prepare.sh一键运行;
+* 以下操作可以运行prepare.sh一键运行: 直接在OneFlowAutoTest下运行prepare.sh即可
 * 安装对应版本python与pytorch:
 ```shell
 apt-get -y install python3.10 # ubuntu22.04默认python3.10
