@@ -37,7 +37,7 @@ if [[ ! -z "$DATA_FOLDER" ]]; then
     mkdir -p $DATA_FOLDER
 fi
 
-export CUDA_VISIBLE_DEVICES=1,0
+export CUDA_VISIBLE_DEVICES=7,6,5,4,3,2,1,0
 
 # volcengine.com
 unset NCCL_DEBUG
