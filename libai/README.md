@@ -35,6 +35,7 @@ wget https://oneflow-test.oss-cn-beijing.aliyuncs.com/OneFlowAutoTest/libai/data
 * `cp bert_nl24_nah16_hs1024.py libai/configs/`
 * 修改 libai/configs/common/data/bert_dataset.py中data_prefix路径。
 * 运行run_libai.sh
+* 如果想切换branch执行libai，运行switch_branch.sh
 
 ### 运行megatron实验
 * 修改megatron_args_pretrain_bert.sh 中的data_path与vocab_file
