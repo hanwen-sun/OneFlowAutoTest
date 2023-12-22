@@ -11,9 +11,8 @@ git clone https://github.com/Oneflow-Inc/models.git
 ```
 
 ### 3. 路径修改
-将args_test_speed.sh中的/path/to/修改为自己的绝对路径
-有model与logdata两个地方;
-
+* 将args_test_speed.sh中的/path/to/修改为自己的绝对路径
+* 有model与logdata两个地方;
 ### 4. 运行
 
 - 运行之前需要先确认
