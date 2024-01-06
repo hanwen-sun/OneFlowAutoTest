@@ -1,18 +1,18 @@
-dir=/home/OneFlowAutoTest/libai
-git clone https://github.com/Oneflow-Inc/libai.git
-cd libai
+#dir=/home/OneFlowAutoTest/libai
+#git clone https://github.com/Oneflow-Inc/libai.git
+#cd libai
 
 # 确认已安装oneflow版本
-pip install pybind11
-pip install -e .
+#pip install pybind11
+#pip install -e .
 
-cd $dir
+#cd $dir
 
-git clone https://github.com/NVIDIA/Megatron-LM.git
-cd Megatron-LM
-pip install .
+#git clone https://github.com/NVIDIA/Megatron-LM.git
+#cd Megatron-LM
+#pip install .
 
-cd $dir
+#cd $dir
 
 mkdir bert_dataset && cd bert_dataset
 # apt-get -y install wget
@@ -33,7 +33,7 @@ sed -i '/for self.iter in range(start_iter, max_iter):/a\                    if 
                       cmd = "nvidia-smi --query-gpu=timestamp,name,driver_version,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used --format=csv" \
                       os.system(cmd)' libai/libai/engine/trainer.py
 
-sed -i '/import torch/a import os' Megatron-LM/megatron/training.py
-sed -i '/if iteration % args.log_interval == 0:/a\        if iteration == 100: \
-          cmd = "nvidia-smi --query-gpu=timestamp,name,driver_version,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used --format=csv" \
-          os.system(cmd)' Megatron-LM/megatron/training.py
+#sed -i '/import torch/a import os' Megatron-LM/megatron/training.py
+#sed -i '/if iteration % args.log_interval == 0:/a\        if iteration == 100: \
+#          cmd = "nvidia-smi --query-gpu=timestamp,name,driver_version,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used --format=csv" \
+#          os.system(cmd)' Megatron-LM/megatron/training.py

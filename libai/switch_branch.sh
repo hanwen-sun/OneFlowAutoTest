@@ -1,3 +1,4 @@
+cd libai
 git config user.email "1"
 git config user.name "1"
 git add .
@@ -5,6 +6,7 @@ git commit -m "experiment"
 
 git fetch origin write_metric_thread
 git checkout write_metric_thread
+cd ..
 
 cp bert_nl24_nah16_hs1024.py libai/configs/
 
@@ -17,7 +19,7 @@ sed -i '/for self.iter in range(start_iter, max_iter):/a\                    if 
                       cmd = "nvidia-smi --query-gpu=timestamp,name,driver_version,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used --format=csv" \
                       os.system(cmd)' libai/libai/engine/trainer.py
 
-sed -i '/import torch/a import os' Megatron-LM/megatron/training.py
-sed -i '/if iteration % args.log_interval == 0:/a\        if iteration == 100: \
-          cmd = "nvidia-smi --query-gpu=timestamp,name,driver_version,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used --format=csv" \
-          os.system(cmd)' Megatron-LM/megatron/training.py
+#sed -i '/import torch/a import os' Megatron-LM/megatron/training.py
+#sed -i '/if iteration % args.log_interval == 0:/a\        if iteration == 100: \
+#          cmd = "nvidia-smi --query-gpu=timestamp,name,driver_version,utilization.gpu,utilization.memory,memory.total,memory.free,memory.used --format=csv" \
+#          os.system(cmd)' Megatron-LM/megatron/training.py

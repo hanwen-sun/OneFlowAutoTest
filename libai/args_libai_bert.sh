@@ -47,12 +47,12 @@ LOG_FILENAME=$LOG_FOLDER/${TRAN_MODEL}_nl${NUM_LAYER}_nah16_hs1024_${AMP_OR}_ac$
 echo LOG_FILENAME=$LOG_FILENAME
 mkdir -p $LOG_FILENAME
 
-export CUDA_VISIBLE_DEVICES=7,6,5,4,3,2,1,0
+#export CUDA_VISIBLE_DEVICES=7,6,5,4,3,2,1,0
 # nsys
-# nsys profile --stats true --output ${LOG_FILENAME} \
+#nsys profile --stats true --output ${LOG_FILENAME} \
 python3 -m oneflow.distributed.launch \
 --nproc_per_node $GPUS_PER_NODE --nnodes $NNODES --node_rank $NODE_RANK --master_addr $MASTER_ADDR --master_port $MASTER_PORT \
-/home/OneFlowAutoTest/libai/libai/tools/train_net.py \
+/home/sunhanwen/OneFlowAutoTest/libai/libai/tools/train_net.py \
 --config-file $CONFIG \
 model.cfg.hidden_layers=$NUM_LAYER \
 train.dist.pipeline_num_layers=$NUM_LAYER \
