@@ -13,6 +13,7 @@ python -m pip install --upgrade pip   # 可以不用执行
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 * oneflow可以采用源码编译或pip安装方式:
+    - nightly版本安装cu12的oneflow可能会出问题，与环境有关;
 ```shell
 python3 -m pip install --pre oneflow -f https://oneflow-staging.oss-cn-beijing.aliyuncs.com/branch/master/cu118
 
