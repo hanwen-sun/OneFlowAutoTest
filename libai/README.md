@@ -11,7 +11,7 @@ pip install -e .
 ### 修改libai代码
 * libai默认为graph模式，需要手动开启eager模式
   * 在libai/configs/common/models/graph.py 中修改enabled=False;
-
+* 如果需要，参照switch_branch.sh切换libai分支
 ### megatron安装
 ```shell
 git clone https://github.com/NVIDIA/Megatron-LM.git

@@ -1,18 +1,18 @@
-#dir=/home/OneFlowAutoTest/libai
-#git clone https://github.com/Oneflow-Inc/libai.git
-#cd libai
+dir=/home/sunhanwen/OneFlowAutoTest/libai
+git clone https://github.com/Oneflow-Inc/libai.git
+cd libai
 
 # 确认已安装oneflow版本
-#pip install pybind11
-#pip install -e .
+pip install pybind11
+pip install -e .
 
 #cd $dir
 
-#git clone https://github.com/NVIDIA/Megatron-LM.git
-#cd Megatron-LM
-#pip install .
+git clone https://github.com/NVIDIA/Megatron-LM.git
+cd Megatron-LM
+pip install .
 
-#cd $dir
+cd $dir
 
 mkdir bert_dataset && cd bert_dataset
 # apt-get -y install wget
