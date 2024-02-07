@@ -27,4 +27,4 @@ cd ..
 
 git clone https://github.com/NVIDIA/Megatron-LM.git
 cd Megatron-LM
-pip install .
+pip install -e .

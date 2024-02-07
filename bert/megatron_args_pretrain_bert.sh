@@ -52,7 +52,7 @@ export CUDA_VISIBLE_DEVICES=7,6,5,4,3,2,1,0
 # nsys
 #nsys profile --stats true --output ${LOG_FILENAME} \
 CMD="python -m torch.distributed.run $DISTRIBUTED_ARGS \
-       Megatron-LM/pretrain_bert.py \
+       ../Megatron-LM/pretrain_bert.py \
        --tensor-model-parallel-size $MP \
        --pipeline-model-parallel-size $PP \
        --num-layers $NUM_LAYER \
