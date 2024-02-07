@@ -52,7 +52,7 @@ mkdir -p $LOG_FILENAME
 #nsys profile --stats true --output ${LOG_FILENAME} \
 python3 -m oneflow.distributed.launch \
 --nproc_per_node $GPUS_PER_NODE --nnodes $NNODES --node_rank $NODE_RANK --master_addr $MASTER_ADDR --master_port $MASTER_PORT \
-/home/sunhanwen/OneFlowAutoTest/libai/libai/tools/train_net.py \
+/home/OneFlowAutoTest/libai/tools/train_net.py \
 --config-file $CONFIG \
 model.cfg.hidden_layers=$NUM_LAYER \
 train.dist.pipeline_num_layers=$NUM_LAYER \

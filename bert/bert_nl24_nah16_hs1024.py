@@ -9,8 +9,8 @@ import sys
 import os
 
 #os.chdir(sys.path[0])
-vocab_file = "/home/sunhanwen/OneFlowAutoTest/libai/bert_dataset/bert-base-chinese-vocab.txt"
-data_prefix = "/home/sunhanwen/OneFlowAutoTest/libai/bert_dataset/loss_compara_content_sentence"
+vocab_file = "/home/OneFlowAutoTest/bert/bert_dataset/bert-base-chinese-vocab.txt"
+data_prefix = "/home/OneFlowAutoTest/bert/bert_dataset/loss_compara_content_sentence"
 
 tokenization.tokenizer.vocab_file = vocab_file
 dataloader.train.dataset[0].data_prefix = data_prefix
