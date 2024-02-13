@@ -15,10 +15,16 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 # 安装oneflow
 # 这里安装cuda12.1版本，与pytorch保持一致;
 python3 -m pip install --pre oneflow -f https://oneflow-staging.oss-cn-beijing.aliyuncs.com/branch/master/cu121
-
+python3 -m pip install nvidia-cudnn-cu12 nvidia-cublas-cu12
 python3 -m oneflow --doctor # 查看oneflow版本;
 
+# 安装pytorch
+pip3 install torch torchvision torchaudio
+
 # 安装libai与megatron
+# 在A100/A800平台开启代理;
+export http_proxy=http://10.101.0.1:7890
+export https_proxy=http://10.101.0.1:7890
 git clone https://github.com/Oneflow-Inc/libai.git
 cd libai
 

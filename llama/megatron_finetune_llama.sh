@@ -10,9 +10,9 @@ NODE_RANK=0
 WORLD_SIZE=$(($GPUS_PER_NODE*$NNODES))
 
 #需要修改的路径位置
-TOKENIZER_MODEL=/hf_models/meta-llama/Llama-2-7b-hf/tokenizer.model
-CHECKPOINT_PATH=/home/fuxu/Megatron-LM/ckpt
-DATA_PATH=/home/fuxu/Megatron-LM/datasets/loss_compara_content_sentence
+TOKENIZER_MODEL=/home/llama-model/tokenizer.model   # https://huggingface.co/meta-llama/Llama-2-7b-hf
+CHECKPOINT_PATH=/home/Megatron-LM/ckpt
+DATA_PATH=/home/OneAutoTest/llama/llama_datasets/loss_compara_content_sentence
 
 # 7 B   
 HIDDEN_SIZE=4096 # e.g. llama-13b: 5120
@@ -84,18 +84,19 @@ OUTPUT_ARGS="
     --eval-iters 10
 "
 
-#使用进程号作为文件名保存相关的输出信息
-my_pid=$$
-echo "save file: job_$my_pid.log"
+#输出文件名
+logfile="megatron_finetune_llama.log"
+echo "save file: $logfile"
 
-torchrun $DISTRIBUTED_ARGS pretrain_gpt.py \
+rm -rf $logfile
+torchrun $DISTRIBUTED_ARGS ../Megatron-LM/pretrain_gpt.py \
     $GPT_ARGS \
     $TRAINING_ARGS \
     $DATA_ARGS \
     $OUTPUT_ARGS \
     --distributed-backend nccl \
     --save $CHECKPOINT_PATH \
-    --load $CHECKPOINT_PATH >> job_$my_pid.log 2>&1
+    --load $CHECKPOINT_PATH >> $logfile 2>&1
 
 #使用nsys存储相关的GPU kernel运行信息
 # nsys profile --trace=cuda,nvtx --force-overwrite true --output=job_$my_pid.qdrep --stats=true torchrun $DISTRIBUTED_ARGS pretrain_gpt.py \

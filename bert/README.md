@@ -1,13 +1,6 @@
 ## libai与megatron性能对比(Bert)
-### libai安装
-```shell
-git clone https://github.com/Oneflow-Inc/libai.git
-cd libai
-
-# 确认已安装oneflow版本
-pip install pybind11
-pip install -e .
-```
+### 环境准备
+* 检查libai, megatron, oneflow与pytorch是否都已安装
 ### 修改libai代码
 * libai默认为graph模式，需要手动开启eager模式
   * 在libai/configs/common/models/graph.py 中修改enabled=False;
