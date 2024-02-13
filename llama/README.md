@@ -1,4 +1,4 @@
-## libai与megatron性能对比(Bert)
+## libai与megatron性能对比(llama2-7B)
 ### libai安装
 ```shell
 git clone https://github.com/Oneflow-Inc/libai.git
@@ -21,11 +21,10 @@ pip install .
 
 ### 数据准备
 ```shell
-mkdir bert_dataset && cd bert_dataset
+mkdir llama_dataset && cd llama_dataset
 # apt-get -y install wget
-wget https://oneflow-test.oss-cn-beijing.aliyuncs.com/OneFlowAutoTest/libai/dataset/bert-base-chinese-vocab.txt  &&
-wget https://oneflow-test.oss-cn-beijing.aliyuncs.com/OneFlowAutoTest/libai/dataset/loss_compara_content_sentence.bin && 
-wget https://oneflow-test.oss-cn-beijing.aliyuncs.com/OneFlowAutoTest/libai/dataset/loss_compara_content_sentence.idx
+wget https://oneflow-dataset.oss-cn-beijing.aliyuncs.com/libai/loss_compara_content_sentence.bin &&
+wget https://oneflow-dataset.oss-cn-beijing.aliyuncs.com/libai/loss_compara_content_sentence.idx
 ```
 
 ### 运行libai实验
@@ -38,9 +37,9 @@ wget https://oneflow-test.oss-cn-beijing.aliyuncs.com/OneFlowAutoTest/libai/data
 * 如果想切换branch执行libai，运行switch_branch.sh
 
 ### 运行megatron实验
-* 修改megatron_args_pretrain_bert.sh 中的data_path与vocab_file
-* 运行megatron_args_test.sh
-* nsys开关在megatron_args_pretrain_bert.sh中，运行nsys需要直接在shell中运行，不要写成echo cmd形式;
+* 修改megatron_finetune_llama.sh 中的TOKENIZER_MODEL, CHECKPOINT_PATH与DATA_PATH
+* 运行megatron_finetune_llama.sh
+* nsys开关在megatron_finetune_llama.sh中
 
 ### 提取实验数据
 * `python extract_bert_test.py --test_log $test_log --compare_log $compare_log --oneflow_commit $commit`

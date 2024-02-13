@@ -8,6 +8,8 @@
   - 拉取docker:
 ```shell
 docker run --gpus all -it --shm-size 16G --ulimit memlock=-1 --name eager_test nvcr.io/nvidia/pytorch:23.10-py3
+-v /data/hf_models/meta-llama/Llama-2-7b-hf/tokenizer.model:/home/llama-model/
+# 如果挂载数据需求，如针对llama, 需要添加 -v参数, 挂载/data/hf_models/meta-llama/Llama-2-7b-hf/tokenizer.model 至对应目录
 # 更换清华源
 python -m pip install --upgrade pip   # 可以不用执行
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
