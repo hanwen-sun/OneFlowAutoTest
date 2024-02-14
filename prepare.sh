@@ -18,8 +18,8 @@ python3 -m pip install --pre oneflow -f https://oneflow-staging.oss-cn-beijing.a
 python3 -m pip install nvidia-cudnn-cu12 nvidia-cublas-cu12
 python3 -m oneflow --doctor # 查看oneflow版本;
 
-# 安装pytorch
-pip3 install torch torchvision torchaudio
+# 使用docker自带的pytorch版本;
+# pip3 install torch torchvision torchaudio
 
 # 安装libai与megatron
 # 在A100/A800平台开启代理;
