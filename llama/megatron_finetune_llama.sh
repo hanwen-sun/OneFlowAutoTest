@@ -12,7 +12,7 @@ WORLD_SIZE=$(($GPUS_PER_NODE*$NNODES))
 #需要修改的路径位置
 TOKENIZER_MODEL=/home/llama-model/tokenizer.model   # https://huggingface.co/meta-llama/Llama-2-7b-hf
 CHECKPOINT_PATH=/home/Megatron-LM/ckpt
-DATA_PATH=/home/OneAutoTest/llama/llama_datasets/loss_compara_content_sentence
+DATA_PATH=/home/OneFlowAutoTest/llama/llama_dataset/loss_compara_content_sentence
 
 # 7 B   
 HIDDEN_SIZE=4096 # e.g. llama-13b: 5120
