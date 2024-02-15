@@ -89,7 +89,7 @@ logfile="megatron_finetune_llama.log"
 echo "save file: $logfile"
 
 rm -rf $logfile
-torchrun $DISTRIBUTED_ARGS ../Megatron-LM/pretrain_gpt.py \
+torchrun $DISTRIBUTED_ARGS pretrain_gpt.py \
     $GPT_ARGS \
     $TRAINING_ARGS \
     $DATA_ARGS \
