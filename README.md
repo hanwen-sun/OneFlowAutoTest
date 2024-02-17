@@ -22,7 +22,14 @@ python3 -m pip install --pre oneflow -f https://oneflow-staging.oss-cn-beijing.a
 python3 -m oneflow --doctor # 查看oneflow版本;
 ```
 * 分别安装libai与megatron
-* 运行prepare.sh脚本一键安装
+* 可以运行prepare.sh脚本一键安装
+
+### nvidia docker oneflow源码编译
+* docker中没有cudnn, 将服务器中的cudnn挂载上:
+```shell
+docker run --gpus all -it --shm-size 16G --ulimit memlock=-1 -v /usr/local/cudnn:/usr/local/cudnn /data/hf_models/meta-llama/Llama-2-7b-hf/:/home/llama-model/ --name eager_test nvcr.io/nvidia/pytorch:23.10-py3
+```
+
 
 ### 进行实验
 * resnet/bert/llama的具体实验操作分别见子目录。
