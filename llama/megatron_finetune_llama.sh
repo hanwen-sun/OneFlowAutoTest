@@ -88,7 +88,8 @@ OUTPUT_ARGS="
 logfile="megatron_finetune_llama.log"
 echo "save file: $logfile"
 
-rm -rf $logfile
+rm -rf results/libai/$logfile
+rm -rf $CHECKPOINT_PATH
 torchrun $DISTRIBUTED_ARGS pretrain_gpt.py \
     $GPT_ARGS \
     $TRAINING_ARGS \
@@ -96,7 +97,7 @@ torchrun $DISTRIBUTED_ARGS pretrain_gpt.py \
     $OUTPUT_ARGS \
     --distributed-backend nccl \
     --save $CHECKPOINT_PATH \
-    --load $CHECKPOINT_PATH >> $logfile 2>&1
+    --load $CHECKPOINT_PATH >> results/libai/$logfile 2>&1
 
 #使用nsys存储相关的GPU kernel运行信息
 # nsys profile --trace=cuda,nvtx --force-overwrite true --output=job_$my_pid.qdrep --stats=true torchrun $DISTRIBUTED_ARGS pretrain_gpt.py \

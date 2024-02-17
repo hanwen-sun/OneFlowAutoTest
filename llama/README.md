@@ -15,23 +15,20 @@ wget https://oneflow-dataset.oss-cn-beijing.aliyuncs.com/libai/loss_compara_cont
 ```
 
 ### 运行libai实验
-* 修改args_libai_bert.sh中的train_net.py的路径;
-* 修改bert_nl24_nah16_hs1024.py中data路径:
-* nsys开关在args_libai_bert.sh中;
-* `cp bert_nl24_nah16_hs1024.py libai/configs/`
-* 修改 libai/configs/common/data/bert_dataset.py中data_prefix路径。
-* 运行run_libai.sh
-* 如果想切换branch执行libai，运行switch_branch.sh
+* 下载alpace dataset: git clone https://github.com/Instruction-Tuning-with-GPT-4/GPT-4-LLM.git
+* 将test_llama_config.py移动至 libai/projects/llama/configs下
+* 修改 libai/projects/Llama 文件夹中导入模型和数据集的位置:
+  * 在adapter_config.py和llama_config.py中修改两个pretrained_model_path;
+  * 在adapter_sft.py与llama_sft.py中修改 dataset_path与pretrained_model_path;
+  * 在llama_sft.py中修改output_dir(checkpoint位置)
+* 运行libai_fintune_llama.sh 
 
 ### 运行megatron实验
-* 修改megatron_finetune_llama.sh 中的TOKENIZER_MODEL, CHECKPOINT_PATH与DATA_PATH
+* 修改megatron_finetune_llama.sh 中的TOKENIZER_MODEL,CHECKPOINT_PATH与DATA_PATH
 * 运行megatron_finetune_llama.sh
 * nsys开关在megatron_finetune_llama.sh中
 
-### 提取实验数据
-* `python extract_bert_test.py --test_log $test_log --compare_log $compare_log --oneflow_commit $commit`
-
 ### 脚本运行
-* 运行prepare.sh
-* 运行run_all.sh
-* 得到最终对比数据在test_logs/libai下
+* 运行prepare.sh, 一键进行环境准备
+* 运行megatron_finetune_llama.sh 
+* 运行libai_finetune_llama.sh

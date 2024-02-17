@@ -10,11 +10,11 @@ echo "save file: $log_filename.log"
 
 #rm -r /data0/home/fuxu/libai/new5/sft_result
 rm -rf ./sft_result
-rm -rf $log_filename.log
+rm -rf results/libai/$log_filename.log
 
 #export ONEFLOW_DEBUG=0
 
-bash ../libai/tools/train.sh ../libai/tools/train_net.py ../libai/projects/Llama/configs/test_llama_config.py 8 > $log_filename.log 2>&1
+bash ../libai/tools/train.sh ../libai/tools/train_net.py ../libai/projects/Llama/configs/test_llama_config.py 8 > results/libai/$log_filename.log 2>&1
 # 使用nsys存储相关的运行信息
 # nsys profile --trace=cuda --output=/data0/home/fuxu/job_$my_pid.qdrep bash tools/train.sh projects/Llama/train_net.py projects/Llama/configs/llama_sft.py 8 >> job_$my_pid.log 2>&1
 #rm -rf $log_filename.nsys-rep
