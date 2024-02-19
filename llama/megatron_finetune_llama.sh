@@ -85,26 +85,26 @@ OUTPUT_ARGS="
 "
 
 #输出文件名
-logfile="megatron_finetune_llama.log"
-echo "save file: $logfile"
+logfile="megatron_finetune_llama"
+echo "save file: $logfile.log"
 
-rm -rf results/libai/$logfile
+rm -rf results/megatron/$logfile.log
 rm -rf $CHECKPOINT_PATH
-torchrun $DISTRIBUTED_ARGS pretrain_gpt.py \
+torchrun $DISTRIBUTED_ARGS ../Megatron-LM/pretrain_gpt.py \
     $GPT_ARGS \
     $TRAINING_ARGS \
     $DATA_ARGS \
     $OUTPUT_ARGS \
     --distributed-backend nccl \
     --save $CHECKPOINT_PATH \
-    --load $CHECKPOINT_PATH >> results/libai/$logfile 2>&1
+    --load $CHECKPOINT_PATH >> results/megatron/$logfile 2>&1
 
 #使用nsys存储相关的GPU kernel运行信息
-# nsys profile --trace=cuda,nvtx --force-overwrite true --output=job_$my_pid.qdrep --stats=true torchrun $DISTRIBUTED_ARGS pretrain_gpt.py \
+#nsys profile --trace=nvtx --delay=60 --duration=6 --output=results/megatron/$logfile.qdrep --stats=true torchrun $DISTRIBUTED_ARGS ../Megatron-LM/pretrain_gpt.py \
 #     $GPT_ARGS \
 #     $TRAINING_ARGS \
 #     $DATA_ARGS \
 #     $OUTPUT_ARGS \
 #     --distributed-backend nccl \
 #     --save $CHECKPOINT_PATH \
-#     --load $CHECKPOINT_PATH >> job_$my_pid.log 2>&1
+#     --load $CHECKPOINT_PATH >> results/megatron/$logfile.log 2>&1

@@ -27,7 +27,21 @@ python3 -m oneflow --doctor # 查看oneflow版本;
 ### nvidia docker oneflow源码编译
 * docker中没有cudnn, 将服务器中的cudnn挂载上:
 ```shell
-docker run --gpus all -it --shm-size 16G --ulimit memlock=-1 -v /usr/local/cudnn:/usr/local/cudnn /data/hf_models/meta-llama/Llama-2-7b-hf/:/home/llama-model/ --name eager_test nvcr.io/nvidia/pytorch:23.10-py3
+docker run --gpus all -it --shm-size 16G --ulimit memlock=-1 -v /usr/local/cudnn:/usr/local/cudnn -v /data/hf_models/meta-llama/Llama-2-7b-hf/:/home/llama-model/ --name eager_test nvcr.io/nvidia/pytorch:23.10-py3
+```
+* 修改oneflow的Cmakelist.txt: set(CMAKE_CXX_STANDARD 14)
+* 手动编译安装 OpenBLAS:
+```shell
+git clone https://github.com/xianyi/OpenBLAS.gi
+make -j32
+make install
+```
+* 编译oneflow:
+```shell
+mkdir build
+cd build
+cmake -DCUDA_TOOLKIT_ROOT_DIR=/usr/local/cuda-12.1/ -DBLA_VENDOR=OpenBLAS  -DCUDNN_ROOT_DIR=/usr/local/cudnn/ -DBUILD_PROFILER=ON  -C ../cmake/caches/cn/cuda.cmake ..
+make -j32
 ```
 
 

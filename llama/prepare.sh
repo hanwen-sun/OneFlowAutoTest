@@ -4,6 +4,8 @@ mkdir llama_dataset && cd llama_dataset
 wget https://oneflow-dataset.oss-cn-beijing.aliyuncs.com/libai/loss_compara_content_sentence.bin &&
 wget https://oneflow-dataset.oss-cn-beijing.aliyuncs.com/libai/loss_compara_content_sentence.idx
 
+cd ..
+
 cp ../Megatron-LM/pretrain_gpt.py ./pretrain_gpt.py
 cp test_llama_config.py ../libai/projects/Llama/configs/
 
