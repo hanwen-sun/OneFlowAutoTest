@@ -29,3 +29,5 @@ sed -i 's|dataset_path = "alpaca_data"|dataset_path = "GPT-4-LLM/plots/data/alpa
 sed -i 's|pretrained_model_path = "meta-llama/Llama-2-7b-hf/"|pretrained_model_path = "/home/llama-model/"|g' ../libai/projects/Llama/configs/llama_sft.py
 
 # 在llama_sft.py中修改checkpoint位置;
+
+mkdir -p ./results/libai ./results/megatron
